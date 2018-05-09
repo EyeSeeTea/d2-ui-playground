@@ -1,0 +1,69 @@
+{
+    "name": "maps-app",
+    "version": "29.0.26",
+    "description": "DHIS2 Maps",
+    "main": "src/app.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dhis2/maps-app.git"
+    },
+    "license": "BSD-3-Clause",
+    "author": "Bjørn Sandvik",
+    "scripts": {
+        "prestart": "d2-manifest package.json manifest.webapp",
+        "start": "webpack-dev-server",
+        "coverage": "npm test -- --coverage",
+        "test": "jest",
+        "test:watch": "yarn test -- --watch",
+        "prebuild": "yarn test",
+        "build": "rm -rf build && NODE_ENV=production webpack --progress && npm run manifest && cp -r i18n build",
+        "postbuild": "cp icon.png ./build/ && cp -r images ./build",
+        "validate": "npm ls --depth 0 || yarn list",
+        "manifest": "d2-manifest package.json build/manifest.webapp",
+        "deploy": "yarn build && mvn clean deploy",
+        "lint": "eslint ./src",
+        "profile": "yarn start -- --profile",
+        "prettify": "prettier \"src/{**/*,*}.js\" --write"
+    },
+    "dependencies": {
+        "@dhis2/d2-ui-core": "^1.1.4",
+        "@dhis2/d2-ui-sharing-dialog": "^1.0.9",
+        "classnames": "^2.2.5",
+        "d2": "^29.1.1",
+        "lodash": "^4.17.5",
+        "loglevel": "^1.6.1",
+        "material-ui": "^0.20.0",
+        "material-ui-icons": "^1.0.0-beta.17",
+        "prop-types": "^15.5.10",
+        "react": "^16.1.1",
+        "react-dom": "^16.1.1"
+    },
+    "devDependencies": {
+        "node-sass": "^4.5.3",
+        "sass-loader": "^6.0.6",
+        "babel-plugin-transform-object-assign": "^6.22.0",
+        "html-webpack-plugin": "^2.30.1",
+        "webpack": "^3.11.0",
+        "webpack-dev-server": "^2.11.1",
+        "d2-manifest": "^1.0.0"
+    },
+    "pre-commit": [
+        "validate",
+        "test"
+    ],
+    "manifest.webapp": {
+        "name": "DHIS2 Maps",
+        "icons": {
+            "48": "icon.png"
+        },
+        "developer": {
+            "url": "",
+            "name": "Bjørn Sandvik"
+        },
+        "activities": {
+            "dhis": {
+                "href": ".."
+            }
+        }
+    }
+}
