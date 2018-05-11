@@ -3,7 +3,11 @@ import { render } from 'react-dom';
 import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
 import Root from './Root';
+import { configI18n } from './util/i18n';
 import '../scss/app.scss';
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 log.setLevel(
     process.env.NODE_ENV === 'production' ? log.levels.INFO : log.levels.TRACE
@@ -22,9 +26,11 @@ getManifest('manifest.webapp')
         log.info(`Built ${manifest.manifest_generated_at}`);
     })
     .then(getUserSettings)
+    .then(configI18n)
     .then(init)
     .then(
         d2 => {
+            window.d2 = d2;
             if (!d2.currentUser.authorities.has('F_SYSTEM_SETTING')) {
                 return;
             }

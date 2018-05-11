@@ -46,7 +46,6 @@ const webpackConfig = {
                 test: /\.jsx?$/,
                 include: [
                     path.resolve(__dirname, 'src/'),
-                    path.resolve(__dirname, '../gis-api/src/'),
                 ],
                 loader: 'babel-loader',
                 query: {
@@ -57,6 +56,10 @@ const webpackConfig = {
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader',
+                include: [
+                    path.resolve(__dirname, 'src/'),
+                    path.resolve(__dirname, 'node_modules/'),
+                ],
             },
             {
                 test: /\.scss$/,
@@ -94,6 +97,7 @@ const webpackConfig = {
             'material-ui': path.resolve('./node_modules/material-ui'),
             'material-ui-icons': path.resolve('./node_modules/material-ui-icons'),
             'd2': path.resolve('./node_modules/d2'),
+            '@dhis2/d2-ui-core': path.resolve('./node_modules/@dhis2/d2-ui-core'),
         },
     },
     externals: [
