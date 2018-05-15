@@ -1,4 +1,10 @@
-# maps-app
-DHIS2 Maps App
+# d2-ui playground
 
-Travis CI: https://travis-ci.org/dhis2/maps-app
+```
+$ yarn install
+$ yarn start
+```
+
+## @d2/d2-ui-interpretations
+
+http://localhost:8082/?type=map&id=zDP78aJU8nX
