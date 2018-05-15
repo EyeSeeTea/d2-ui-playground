@@ -1,13 +1,26 @@
-# d2-ui playground
+## Setup
 
 ```
 $ yarn install
 ```
 
-## @d2/d2-ui-interpretations
+## @dhis2/d2-ui-interpretations
+
+Development:
+
+In d2-ui folder:
 
 ```
-$ yarn link "@d2/d2-ui-interpretations" # should be already registered
+$ yarn install
+$ cd packages/interpretations
+$ yarn link
+$ yarn watch
+```
+
+In d2-ui-playground folder:
+
+```
+$ yarn link "@dhis2/d2-ui-interpretations"
 $ yarn start
 ```
 
