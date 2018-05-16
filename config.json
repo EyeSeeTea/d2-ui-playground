@@ -1,8 +1,0 @@
-{
-  "baseUrl": "http://localhost:8029",
-  "authorization": "Basic Ym9hdGVuZzpUZXN0aW5nMTIzJA==",
-  "_authorization": "Basic YWRtaW46ZGlzdHJpY3Q=",
-  "_baseUrl": "http://dev.eyeseetea.com:8080",
-  "_authorization": "Basic YWRtaW46ajQmZk1EMz0y",
-  "_": 0
-}
