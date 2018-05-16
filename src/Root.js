@@ -50,7 +50,7 @@ class Root extends Component {
                         <p>Object ID: {id}</p>
                         <p>Use query strings <i>type</i> and <i>id</i> to load a favorite</p>
                     </div>
-                    <div style={{width: 300, float: "right"}}>
+                    <div style={{width: 400, float: "right"}}>
                         <Interpretations
                             d2={this.props.d2}
                             type={type}
