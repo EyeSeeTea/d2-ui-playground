@@ -12,6 +12,8 @@ class Root extends Component {
             currentInterpretationId: params.interpretationId,
             type: params.type || props.type,
             id: params.id  || props.id,
+            t: d2.i18n.translations,
+            model: null,
         };
         window.onpopstate = this.onHashChange.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -24,11 +26,13 @@ class Root extends Component {
             currentInterpretationId: params.interpretationId,
             type: params.type,
             id: params.id,
+            lastUpdated: 1,
         });
     }
 
     onChange(model) {
-        console.log("onChange", model.name, model.description);
+        console.log("onChange", model);
+        this.setState({model});
     }
 
     onCurrentInterpretationChange(interpretation) {
@@ -36,25 +40,41 @@ class Root extends Component {
         const newParams = { ...queryString.parse(location.search), interpretationId } ;
         const stringified = queryString.stringify(newParams);
         window.history.pushState(null, null, "/?" + stringified);
+        console.log("onCurrentInterpretationChange", interpretation);
         this.setState( {currentInterpretationId: interpretationId });
     }
 
+    updateInterpretations() {
+        this.setState({lastUpdated: new Date().toString()})
+    }
+
     render() {
-        const { currentInterpretationId, type, id } = this.state;
+        const { currentInterpretationId, type, id, model } = this.state;
 
         return (
             <MuiThemeProvider muiTheme={appTheme}>
                 <div>
-                    <div style={{width: 300, float: "left"}}>
+                    <div style={{width: 'auto', float: "left"}}>
                         <p>Object type: {type}</p>
                         <p>Object ID: {id}</p>
                         <p>Use query strings <i>type</i> and <i>id</i> to load a favorite</p>
+                        {model &&
+                            <div>
+                                <p>Model name: {model.name}</p>
+                                <p>Model description: {model.description}</p>
+                            </div>
+                        }
+
+                        <button onClick={this.updateInterpretations.bind(this)}>Update panel</button>
                     </div>
-                    <div style={{width: 400, float: "right"}}>
+
+                    <div style={{position: "absolute", right: 10, width: 400}}>
                         <Interpretations
                             d2={this.props.d2}
+                            t={this.state.t}
                             type={type}
                             id={id}
+                            lastUpdated={this.state.lastUpdated}
                             onChange={this.onChange}
                             currentInterpretationId={currentInterpretationId}
                             onCurrentInterpretationChange={this.onCurrentInterpretationChange}

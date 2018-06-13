@@ -4,6 +4,7 @@ import log from 'loglevel';
 import { init, config, getUserSettings, getManifest } from 'd2/lib/d2';
 import Root from './Root';
 import { configI18n } from './util/i18n';
+import fp from 'lodash/fp';
 import '../scss/app.scss';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -30,9 +31,13 @@ getManifest('manifest.webapp')
     .then(init)
     .then(
         d2 => {
+            console.log("d2", d2);
+            window.fp = fp;
+
             window.d2 = d2;
             if (!d2.currentUser.authorities.has('F_SYSTEM_SETTING')) {
-                return;
+                console.log("Current user has no 'F_SYSTEM_SETTING'");
+                //return;
             }
 
             render(
