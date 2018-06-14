@@ -3,6 +3,14 @@ import Interpretations from '@dhis2/d2-ui-interpretations';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import appTheme from './app.theme';
 import queryString from 'query-string';
+import i18n from './locales';
+import moment from 'moment';
+
+function configI18n(settings) {
+    const locale = settings.keyUiLocale;
+    moment.locale(locale);
+    i18n.changeLanguage(locale);
+}
 
 class Root extends Component {
     constructor(props) {
@@ -18,6 +26,10 @@ class Root extends Component {
         window.onpopstate = this.onHashChange.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onCurrentInterpretationChange = this.onCurrentInterpretationChange.bind(this);
+    }
+
+    componentDidMount() {
+        configI18n(this.props.d2.currentUser.settings);
     }
 
     onHashChange() {

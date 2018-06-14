@@ -38,7 +38,7 @@ const webpackConfig = {
         path: __dirname + '/build',
         filename: '[name].js',
         chunkFilename: '[name].bundle.js',
-        publicPath: isDevBuild ? 'http://localhost:8082/' : './',
+        publicPath: isDevBuild ? 'http://localhost:8083/' : './',
     },
     module: {
         loaders: [
@@ -56,7 +56,7 @@ const webpackConfig = {
             {
               test: /\.json$/,
               loader: 'json-loader'
-            },            
+            },
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader',
@@ -142,11 +142,11 @@ const webpackConfig = {
     ],
     devServer: {
         contentBase: './',
-        port: 8082,
+        port: 8083,
         inline: true,
         compress: true,
         proxy: [
-            { path: '/polyfill.min.js', target: 'http://localhost:8082/node_modules/babel-polyfill/dist', bypass: log },
+            { path: '/polyfill.min.js', target: 'http://localhost:8083/node_modules/babel-polyfill/dist', bypass: log },
             { path: '/api/*', target: dhisConfig.baseUrl, bypass: log },
             { path: '/dhis-web-commons/**', target: dhisConfig.baseUrl, bypass: log },
             { path: '/icons/*', target: dhisConfig.baseUrl, bypass: log },
